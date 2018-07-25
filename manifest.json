@@ -1,31 +1,44 @@
 {
-  "manifest_version": 2,
-  "name": "Huddle",
-  "version": "1",
-  "description": "Feeling sad, angry or anxious? Get a playlist to help with that.", 
-  "icons": {
-    "16" : "icon.png",
-    "48" : "icon.png",
-    "128": "icon.png"
-  },
-
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>", "http://www.google.com/*"],
-      "js": [ "tingle.js", "jquery-3.3.1.js", "content.js" ],
-      "css": ["tingle.css", "button.css","switch.css", "popup.css"]
-    }
-  ],
-
-  "browser_action": {
-      "default_icon": "icon.png",
-      "default_popup": "popup.html"
-  },
-
-  "permissions": [
-        "activeTab",
-        "tabs", 
-        "storage"
-    ]
-
+	"author": "Shivam",
+	"browser_action": {
+        "default_icon": {
+            "16": "icon.png"
+        },
+		"default_popup": "popup.html"
+	},
+	"content_scripts": [{
+		"matches": [
+			"<all_urls>",
+			"http://www.google.com/*"
+		],
+		"js": [
+			"tingle.js",
+			"jquery-3.3.1.js",
+			"content.js"
+		],
+		"css": [
+			"tingle.css",
+			"button.css",
+			"switch.css",
+			"popup.css"
+		]
+	}],
+	"description": "Feeling sad, angry or anxious? Get a playlist to help with that.",
+	"icons": {
+		"16": "icon.png",
+		"48": "icon.png",
+		"128": "icon.png"
+	},
+	"manifest_version": 2,
+	"name": "Huddle",
+	"permissions": [
+		"activeTab",
+		"tabs",
+		"storage"
+	],
+	"version": "1",
+	"-ms-preload": {
+		"backgroundScript": "backgroundScriptsAPIBridge.js",
+		"contentScript": "contentScriptsAPIBridge.js"
+	}
 }

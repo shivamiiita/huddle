@@ -1,4 +1,4 @@
-# Hacktech - Huddle Chrome Extension
-Hackathon project for Amazing Asia
+# Huddle - Huddle Edge Extension
+Hackathon project for mentalHealth
 
 

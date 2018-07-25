@@ -22,7 +22,7 @@ function logSadness()
             quant++;
             chrome.storage.local.set({'sadNum': quant});
         }
-        alert(quant - 1)
+        console.log("Quant is " + quant - 1)
     });
 }
 
@@ -241,22 +241,22 @@ var modal5 = new tingle.modal({
     }
 });
 
-modal5.setContent('<h1>you\'ve been looking at quite a lot of heavy content and we\'re getting worried. please reach out to a mental health hotline if you\'re struggling.</h1>');
+modal5.setContent('<h1>you\'ve been looking at quite a lot of heavy content and we\'re getting worried. please reach out to a doctor or family members if you\'re struggling.</h1>');
 
 // add a button
-modal5.addFooterBtn('call a mental health hotline - teenline', 'tingle-btn tingle-btn--primary', function() {
+modal5.addFooterBtn('Consult psychiatrist', 'tingle-btn tingle-btn--primary', function() {
     // here goes some logic
     callHotline();
     modal5.close();
 
 });
 
-modal5.addFooterBtn('call a family member', 'tingle-btn tingle-btn--primary', function() {
+modal5.addFooterBtn('Call a family member', 'tingle-btn tingle-btn--primary', function() {
     // here goes some logic
     modal5.close();
 });
 
-modal5.addFooterBtn('call a friend', 'tingle-btn tingle-btn--primary', function() {
+modal5.addFooterBtn('Call a friend', 'tingle-btn tingle-btn--primary', function() {
     // here goes some logic
     modal5.close();
 });
@@ -265,16 +265,17 @@ function callHotline()
 {
     $(function() {
         
-        const accountSid = 'AC789d4c412fd6578d774753707937db8b';
-        const authToken = 'b9b64a1dacafd3f1a8b8408ba5513e7f';
+        const accountSid = 'ACecd9aef22723409ac24163eba5b4b67a';
+        const authToken = '5bf93c0505712f08f085ea2e14606792';
 
         var body = {
     'Url': 'https://handler.twilio.com/twiml/EH49f3c8b695ed4c888a72d8d799e5bd84',
-    'To': '+19252095421',
-    'From': '+18186167686'
+    'To': '+918884559384',
+    'From': '+18506080212'
         };
         var encoded = btoa(`${accountSid}:${authToken}`);
 
+		console.log("Just called hotline number");
         $.ajax({
             url: `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Calls.json`,
             beforeSend: function(xhrObj){
@@ -289,8 +290,8 @@ function callHotline()
         .done(function(data){
             console.log(data);
         })
-        .fail(function(){
-
+        .fail(function(data){
+			console.log(data);
         });
      });   
 }
@@ -311,22 +312,8 @@ function sentimentAnalysis()
         {
             end = 5000;
         }
-        
-        //display number of words to analyse
-        //alert(end);
 
         var words = getText().toString().substring(0, end);
-
-        //display words to be analysed
-        //alert(words);
-
-       // let word = 'I am so happy!!!!';
-
-     /*   let documents = { 'documents': [
-    { 'id': '1', 'language': 'en', 'text': 'I really enjoy the new XBox One S. It has a clean look, it has 4K/HDR resolution and it is affordable.' },
-    { 'id': '2', 'language': 'es', 'text': 'Este ha sido un dia terrible, llegué tarde al trabajo debido a un accidente automobilistico.' },
-    { 'id': '3', 'language': 'en', 'text': word}
-        ]};*/
 
         let blahblah = { 'documents': [
     { 'id': '1', 'language': 'en', 'text': words}]};
@@ -347,27 +334,20 @@ function sentimentAnalysis()
             data: body,
         })
         .done(function(data) {
-            alert("success");
-            console.log(data);
-            alert(data.documents[0].score);
-
+            console.log("Score is " + data.documents[0].score);
             if (data.documents[0].score < 0.2)
             {
-                alert("score less than .2");
                 makeYouHappy();
                 logSadness();
             }
-            //else youre already reading happy stuff and don't need to be reminded to be happy!
+            //else you are already reading happy stuff and don't need to be reminded to be happy!
         })
         .fail(function() {
-            alert("error");
+            console.log("error");
         });
     });
 }
 
-
-//alert(getText())
-//var toggleOnOff = getToggleOnOff();
 if(true){
     console.log("start sentiment analysis");
     sentimentAnalysis();
@@ -427,40 +407,3 @@ function choosePlaylist(mood) {
     }
     return [playlist, title];
 }
-
-
-/*
-function addButton()
-{
-    var buttonnode = document.createElement("input");
-    buttonnode.setAttribute('type', 'button');
-    buttonnode.setAttribute('name', 'sal');
-    buttonnode.setAttribute('value', 'sal');
-	var main = document.getElementById("main");
-    var button = document.createElement("button");
-    var text = document.createTextNode("test");
-    buttonnode.appendChild(text);
-    main.prepend(buttonnode);
-
-    buttonnode.onclick = Hi;
-}
-
-addButton()
-
-
-function button()
-{
-    $("body").wrapAll("<div class='wrapper'></div>");
-    $("body").prepend("<div class=''></div>");
-}
-
-/*
-
-function addBanner()
-{
-    $("body").wrapAll("<div class='oldBody'></div>");
-    $("body").prepend("<div id='banner'></div>");
-}
-addBanner() 
-*/
-
